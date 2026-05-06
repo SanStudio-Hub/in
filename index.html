@@ -10,15 +10,13 @@
     <meta property="og:title" content="SanStudio | Modern Web Experiences">
     <meta property="og:description" content="Official Developer Studio Portfolio. We build modern web experiences.">
     <meta property="og:type" content="website">
-    
     <!-- Logo-->
     <link rel="icon" type="image/png" href="https://sanstudio2026.neocities.org/San.png">
-
     <!-- Fonts: Inter (Sans) and Playfair Display (Serif to mimic Brave's editorial headings) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -99,25 +97,6 @@
             box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.5);
         }
 
-        /* Watermark Background text */
-        .watermark-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 26vw;
-            font-weight: 800;
-            color: #f3f4f6;
-            z-index: -1;
-            user-select: none;
-            line-height: 1;
-            letter-spacing: -0.05em;
-        }
-
-        .dark .watermark-text {
-            color: #1a1a1a;
-        }
-
         /* Modals */
         .modal-overlay {
             background: rgba(0,0,0,0.5);
@@ -161,18 +140,18 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-6 font-medium text-[15px] text-gray-700 dark:text-gray-200">
-                    <div class="relative nav-item cursor-pointer flex items-center gap-1 hover:text-black dark:hover:text-white">
-                        Services <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
-                    </div>
-                    <div class="relative nav-item cursor-pointer flex items-center gap-1 hover:text-black dark:hover:text-white" onclick="document.getElementById('projects').scrollIntoView()">
+                    <button onclick="openModal('servicesModal')" class="relative nav-item cursor-pointer flex items-center gap-1 hover:text-black dark:hover:text-white transition-colors">
+                        Services <i data-lucide="layers" class="w-4 h-4 text-gray-400"></i>
+                    </button>
+                    <a href="#projects" class="relative nav-item cursor-pointer flex items-center gap-1 hover:text-black dark:hover:text-white">
                         Projects <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
-                    </div>
-                    <div class="relative nav-item cursor-pointer flex items-center gap-1 hover:text-black dark:hover:text-white" onclick="document.getElementById('team').scrollIntoView()">
+                    </a>
+                    <a href="#team" class="relative nav-item cursor-pointer flex items-center gap-1 hover:text-black dark:hover:text-white">
                         Team <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
-                    </div>
-                    <div class="relative nav-item cursor-pointer flex items-center gap-1 hover:text-black dark:hover:text-white" onclick="document.getElementById('about').scrollIntoView()">
-                        About Us <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
-                    </div>
+                    </a>
+                    <button onclick="openModal('aboutModal')" class="relative nav-item cursor-pointer flex items-center gap-1 hover:text-black dark:hover:text-white transition-colors">
+                        About Us <i data-lucide="info" class="w-4 h-4 text-gray-400"></i>
+                    </button>
                     <button onclick="openModal('ourWorkModal')" class="relative nav-item cursor-pointer flex items-center gap-1 text-brave-orange hover:text-brave-orangeHover font-bold transition-colors">
                         Our Work <i data-lucide="folder-open" class="w-4 h-4"></i>
                     </button>
@@ -210,10 +189,10 @@
         <!-- Mobile Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden absolute w-full bg-white dark:bg-dark-surface border-b border-gray-200 dark:border-dark-border shadow-xl">
             <div class="px-6 py-6 flex flex-col gap-4 text-lg font-medium">
-                <a href="#services" class="block py-2 mobile-link">Services</a>
+                <button onclick="openModal('servicesModal'); document.getElementById('mobile-menu').classList.add('hidden');" class="block py-2 text-left mobile-link hover:text-brave-orange transition-colors">Services</button>
                 <a href="#projects" class="block py-2 mobile-link">Projects</a>
                 <a href="#team" class="block py-2 mobile-link">Team</a>
-                <a href="#about" class="block py-2 mobile-link">About Us</a>
+                <button onclick="openModal('aboutModal'); document.getElementById('mobile-menu').classList.add('hidden');" class="block py-2 text-left mobile-link hover:text-brave-orange transition-colors">About Us</button>
                 <button onclick="openModal('ourWorkModal'); document.getElementById('mobile-menu').classList.add('hidden');" class="block py-2 text-left text-brave-orange font-bold">Our Work</button>
                 <a href="#contact" class="block py-3 mt-4 rounded-full bg-brave-purple text-white text-center font-semibold mobile-link">Hire Us</a>
             </div>
@@ -223,10 +202,15 @@
     <!-- 1. Hero Section (Brave Main Headline Style) -->
     <header id="hero" class="relative pt-40 pb-24 md:pt-52 md:pb-32 overflow-hidden flex flex-col items-center justify-center text-center px-6">
         
-        <!-- Giant Background Watermark -->
-        <div class="watermark-text font-sans tracking-tighter">
-            studio
-        </div>
+        <!-- Background Video -->
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-[-2]">
+            <source src="San.mp4" type="video/mp4">
+            <!-- Fallback text if video isn't supported -->
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Video Overlay (ensures text is readable over the video) -->
+        <div class="absolute inset-0 bg-white/70 dark:bg-[#121212]/80 backdrop-blur-sm z-[-1]"></div>
         
         <div class="max-w-4xl mx-auto z-10">
             <h1 class="font-serif text-5xl sm:text-6xl md:text-[5rem] lg:text-[6.5rem] font-medium tracking-tight text-brave-text dark:text-white mb-6 leading-[1.05] text-balance mx-auto w-full">
@@ -567,6 +551,132 @@
                     </a>
                 </li>
             </ul>
+        </div>
+    </div>
+
+    <!-- Services Modal -->
+    <div id="servicesModal" class="fixed inset-0 z-50 flex items-center justify-center modal-overlay p-4">
+        <div class="brave-card p-6 md:p-8 max-w-4xl w-full modal-content relative flex flex-col max-h-[90vh]">
+            <button onclick="closeModal('servicesModal')" class="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border-[1.5px] border-transparent hover:border-brave-border dark:hover:border-gray-500 z-10">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <div class="mb-6 shrink-0">
+                <h3 class="text-2xl font-bold mb-1 tracking-tight">Our Services</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Comprehensive digital solutions engineered by SanStudio.</p>
+            </div>
+            
+            <!-- Scrollable Grid -->
+            <div class="overflow-y-auto pr-2 pb-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <a href="https://santhosh2025.neocities.org/Skill/Skills" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="monitor" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">Website development</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                    <a href="https://santhosh2025.neocities.org/Skill/Skills" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="code" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">HTML web applications</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                    <a href="https://santhosh2025.neocities.org/Skill/Skills" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="cloud" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">SaaS development</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                    <a href="https://santhosh2025.neocities.org/Skill/Skills" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="pen-tool" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">UI/UX design</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                    <a href="https://santhosh2025.neocities.org/Skill/Skills" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="image" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">Multimedia design</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                    <a href="https://santhosh2025.neocities.org/Skill/Skills" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="gamepad-2" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">Game development</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                    <a href="https://a-santhosh-hub.github.io/My-Blender-3D-Models/" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="box" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">3D modeling</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                    <a href="https://santhosh2025.neocities.org/Skill/Skills" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="bot" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">Prompt engineering</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                    <a href="https://github.com/A-Santhosh-Hub/Android_Application" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="smartphone" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">App & software development</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                    <a href="https://github.com/A-Santhosh-Hub/IEEE-Conference-Paper-2025-" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="file-text" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">Content writing</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@crazyvideos788" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="video" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">YouTube creator services</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                    <a href="https://santhosh2025.neocities.org/Skill/Skills" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="trending-up" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">Digital marketing analysis</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                    <a href="https://santhosh2025.neocities.org/Skill/Skills" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="wrench" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">Web simplification tools</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                    <a href="https://santhosh2025.neocities.org/Skill/Skills" target="_blank" class="flex items-center justify-between p-4 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group">
+                        <div class="flex items-center gap-3"><i data-lucide="sparkles" class="w-5 h-5 text-brave-purple"></i><span class="font-bold text-sm group-hover:text-brave-orange transition-colors">Creative digital solutions</span></div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-brave-orange"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Modal -->
+    <div id="aboutModal" class="fixed inset-0 z-50 flex items-center justify-center modal-overlay p-4">
+        <div class="brave-card p-6 md:p-10 max-w-3xl w-full modal-content relative flex flex-col max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('aboutModal')" class="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border-[1.5px] border-transparent hover:border-brave-border dark:hover:border-gray-500 z-10">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <h2 class="font-serif text-3xl md:text-4xl font-medium tracking-tight mb-6 text-brave-text dark:text-white">About Us — SanStudio</h2>
+            
+            <div class="space-y-4 text-[15px] md:text-base text-gray-600 dark:text-gray-400 mb-8">
+                <p class="font-bold text-gray-900 dark:text-gray-100 text-lg">At SanStudio, we transform ideas into powerful digital experiences.</p>
+                <p>Built with creativity, innovation, and modern technology, our mission is to simplify the digital world while creating visually stunning and highly functional solutions for brands, creators, businesses, and future-ready platforms.</p>
+                <p>From advanced websites and SaaS applications to UI/UX systems, multimedia design, 3D creativity, game concepts, and AI-powered workflows — we combine design thinking with engineering precision to build experiences that feel modern, intelligent, and unforgettable.</p>
+                <p class="font-medium text-brave-purple">We believe technology should not only work beautifully, but also inspire people.</p>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="font-serif text-2xl font-medium tracking-tight mb-3 text-brave-text dark:text-white flex items-center gap-2">
+                    <i data-lucide="target" class="w-6 h-6 text-brave-orange"></i> Our Motive
+                </h3>
+                <p class="text-[15px] text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-dark-surface p-5 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 font-medium leading-relaxed">
+                    To build creative digital solutions that make technology simpler, smarter, and more engaging for everyone.
+                </p>
+            </div>
+
+            <div>
+                <h3 class="font-serif text-2xl font-medium tracking-tight mb-4 text-brave-text dark:text-white flex items-center gap-2">
+                    <i data-lucide="users" class="w-6 h-6 text-brave-purple"></i> Team
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="p-5 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface">
+                        <p class="font-bold text-gray-900 dark:text-white text-lg">Santhosh A</p>
+                        <p class="text-[11px] font-bold text-brave-orange tracking-widest uppercase mt-1 mb-2">Founder</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 font-medium">Frontend Engineer & UI Architect</p>
+                    </div>
+                    <div class="p-5 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface">
+                        <p class="font-bold text-gray-900 dark:text-white text-lg">Deva K</p>
+                        <p class="text-[11px] font-bold text-brave-purple tracking-widest uppercase mt-1 mb-2">Co-Founder</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 font-medium">Interaction & Product Designer</p>
+                    </div>
+                    <div class="p-5 rounded-xl border-[1.5px] border-brave-border dark:border-gray-600 bg-gray-50 dark:bg-dark-surface">
+                        <p class="font-bold text-gray-900 dark:text-white text-lg">Vicky</p>
+                        <p class="text-[11px] font-bold text-teal-600 tracking-widest uppercase mt-1 mb-2">Lead Dev</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 font-medium">Web Developer & Systems Builder</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
